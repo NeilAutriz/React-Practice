@@ -1,0 +1,21 @@
+.container-div{
+    height: 78vh;
+    padding: 10px;
+}
+
+.item-button, .name-button{
+    border-radius: 3px;
+    border: none;
+    background-color: rgba(16, 167, 16, 0.981);
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.8s;
+    margin: 10px;
+}
+
+.item-button:active{
+    opacity: 0.5;
+}

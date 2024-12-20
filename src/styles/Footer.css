@@ -1,0 +1,10 @@
+.footer-container{
+    padding: 20px;
+    background-color: seagreen; 
+    color: white;   
+}
+
+.copyright-text{
+    font-weight: bold;
+    font-size: medium;
+}
