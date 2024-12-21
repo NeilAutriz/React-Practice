@@ -1,39 +1,28 @@
 import '../styles/Content.css'
 import { useState } from 'react'
+import { FaBeer } from "react-icons/fa";
+
+
 
 const Content = () => {
-    const [grocery, setGrocery] = useState('')
-    const [name, setName] = useState('')
-    const [count, setCount] = useState(0)
-    
-    const nameChoices = ['Mark', 'Neil', 'Autriz', 'Guinday']
-    const sampleGrocery = ['orange🍑', 'apple🍎', 'banana🍌', 'grapes🍇']
-
-    const getGrocery = () => {
-          const groceryIndex = Math.floor(Math.random() * 4)
-          let selectedGrocery = sampleGrocery[groceryIndex]
-          setGrocery(selectedGrocery)
-    }
-
-    const getUserName = () => {
-        let newNameIndex = Math.floor(Math.random() * 4)
-        let newName = nameChoices[newNameIndex]
-        console.log('Name changed to: ', newName)
-        setName(newName)
-    }
-
-    const handleClick = () => {
-        setCount(count+1)
-        getGrocery()
-        console.log(grocery)
-    }
+    const [grocery, setGrocery] = useState([
+        {id: 1, name:"Cookie", type:"bake", description:"Cookie with oat meal raisins", checked: false},
+        {id: 2, name:"Pomelo", type:"fruit", description:"Seedless pomelo fruit with riped chlorophyll", checked: true},
+        {id: 3, name:"Menudo", type:"dish", description:"Menudo meat with potatoes and orange peanuts", checked: true}
+    ])
 
     return (
         <div className='container-div'>
-            <h2>Hello, {name}👤 </h2>
-            <h2>{grocery}</h2>
-            <button className='item-button' onClick={handleClick}>Get grocery Items</button>
-            <button className='name-button' onClick={getUserName}>Change Name </button>
+            <ul className='grocery-list'>
+                {grocery.map((item) => (
+                    <li className='grocery-item'>
+                        <input type='checkbox' checked={grocery.checked}></input>
+                        <div className='grocery-name'>{item.name}</div>
+                        <FaBeer className='delete-grocery-button' />
+                    </li>
+                ))}
+            </ul>
+
         </div>
     )
 }
