@@ -1,0 +1,41 @@
+.add-form{
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-holder{
+    flex-grow: 1;
+    font-size: 20px;
+    min-width: 20%;
+    max-width: 35%;
+    padding: 8px;
+    height: auto;
+}
+
+.submit-button{
+    height: 43px;
+    width: 50px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+
+.submit-button {
+    background-color: rgb(100, 200, 100); 
+    opacity: 1;
+    transition: background-color 0.5s ease, opacity 0.5s ease;
+}
+
+.submit-button:hover {
+    background-color: rgb(70, 189, 70); /* New color on hover */
+}
+
+.submit-button:active {
+    opacity: 0.5; /* Change opacity on active state */
+}

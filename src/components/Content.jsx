@@ -1,6 +1,7 @@
 import '../styles/Content.css';
 import { useState } from 'react';
 import GroceryList from './GroceryList';
+import AddItem from './AddItem';
 
 const Content = ({initialGrocery}) => {
     const handleLoading = () => {
@@ -44,6 +45,7 @@ const Content = ({initialGrocery}) => {
 
     return (
         <div className="container-div">
+            <AddItem grocery={grocery} setGrocery={setGrocery} saveToLocal={saveToLocal}/>
             {grocery.length === 0 ? (
                 <h1 className='loading-message'>The items are still loading...⌚⌛</h1>
             ) : (
