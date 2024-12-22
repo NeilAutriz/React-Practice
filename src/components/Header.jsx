@@ -1,8 +1,7 @@
 import '../styles/Header.css'
 
-const Header = () => {
+const Header = ({users}) => {
     const handleUserName = () => {
-        const users = ['Mark', 'Neil', 'Autriz']
         let index = Math.floor(Math.random() * 3)
         return users[index] 
     }
@@ -14,5 +13,6 @@ const Header = () => {
         </header>
     )
 }
+
 
 export default Header

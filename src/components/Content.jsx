@@ -1,14 +1,8 @@
 import '../styles/Content.css';
 import { useState } from 'react';
-import { FaBeer } from "react-icons/fa";
+import GroceryList from './GroceryList';
 
-const Content = () => {
-    const initialGrocery = [
-        { id: 1, name: "Cookie", type: "bake", description: "Cookie with oat meal raisins", checked: false },
-        { id: 2, name: "Pomelo", type: "fruit", description: "Seedless pomelo fruit with riped chlorophyll", checked: true },
-        { id: 3, name: "Menudo", type: "dish", description: "Menudo meat with potatoes and orange peanuts", checked: true }
-    ];
-
+const Content = ({initialGrocery}) => {
     const handleLoading = () => {
         let loadedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
         if(loadedGrocery.length === 0 && loadedGrocery){
@@ -17,7 +11,6 @@ const Content = () => {
             return loadedGrocery;
         }
     }
-
     const [grocery, setGrocery] = useState(handleLoading());
     
     // Save the updated grocery list to localStorage
@@ -54,22 +47,7 @@ const Content = () => {
             {grocery.length === 0 ? (
                 <h1 className='loading-message'>The items are still loading...⌚⌛</h1>
             ) : (
-                <ul className="grocery-list">
-                    {grocery.map((item) => (
-                        <li className="grocery-item" key={item.id}>
-                            <input
-                                type="checkbox"
-                                checked={item.checked}
-                                onChange={() => handleChecking(item.id)}
-                            />
-                            <div className="grocery-name" style={designChecked(item.checked)}onDoubleClick={() => handleChecking(item.id)}>{item.name}</div>
-                            <FaBeer
-                                className="delete-grocery-button"
-                                onClick={() => handleDeleting(item.id)}
-                            />
-                        </li>
-                    ))}
-                </ul>
+                <GroceryList grocery={grocery} handleChecking={handleChecking} designChecked={designChecked} handleDeleting={handleDeleting}/>
             )}
         </div>
     );
