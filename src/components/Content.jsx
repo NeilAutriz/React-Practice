@@ -10,15 +10,16 @@ const Content = () => {
     ];
 
     const handleLoading = () => {
-        let savedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
-        if((savedGrocery.length) === 0 ){
+        let loadedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
+        if(loadedGrocery.length === 0 && loadedGrocery){
             localStorage.setItem('groceryItems', JSON.stringify(initialGrocery));
         } else {
-            return savedGrocery;
+            return loadedGrocery;
         }
     }
-        
+
     const [grocery, setGrocery] = useState(handleLoading());
+    
     // Save the updated grocery list to localStorage
     const saveToLocal = (updatedList) => {
         localStorage.setItem('groceryItems', JSON.stringify(updatedList));
@@ -40,10 +41,18 @@ const Content = () => {
         saveToLocal(updatedGrocery);
     };
 
+    const designChecked = (itemChecked) => {
+        if(itemChecked){
+            return {textDecoration: "line-through"};
+        } else {
+            return {textDecoration: "none"};
+        }
+    }
+
     return (
         <div className="container-div">
             {grocery.length === 0 ? (
-                <p>The items are still loading...</p>
+                <h1 className='loading-message'>The items are still loading...⌚⌛</h1>
             ) : (
                 <ul className="grocery-list">
                     {grocery.map((item) => (
@@ -53,7 +62,7 @@ const Content = () => {
                                 checked={item.checked}
                                 onChange={() => handleChecking(item.id)}
                             />
-                            <div className="grocery-name">{item.name}</div>
+                            <div className="grocery-name" style={designChecked(item.checked)}onDoubleClick={() => handleChecking(item.id)}>{item.name}</div>
                             <FaBeer
                                 className="delete-grocery-button"
                                 onClick={() => handleDeleting(item.id)}

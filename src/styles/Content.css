@@ -3,6 +3,14 @@
     padding: 10px;
 }
 
+.loading-message{
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
 .item-button, .name-button{
     border-radius: 3px;
     border: none;
@@ -80,4 +88,7 @@ input[type="checkbox"] {
     accent-color: green;
     cursor: pointer;
 }
-  
+
+.grocery-name{
+    cursor: pointer;
+}
