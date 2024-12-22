@@ -6,8 +6,8 @@
     align-items: center;
 }
 
-.input-holder{
-    flex-grow: 1;
+.input-holder, .type-holder, .desc-holder{
+    margin: 10px;
     font-size: 20px;
     min-width: 20%;
     max-width: 35%;

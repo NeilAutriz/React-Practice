@@ -3,7 +3,7 @@ import { useState } from 'react';
 import GroceryList from './GroceryList';
 import AddItem from './AddItem';
 
-const Content = ({initialGrocery}) => {
+const Content = ({ initialGrocery }) => {
     const handleLoading = () => {
         let loadedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
         if(loadedGrocery.length === 0 && loadedGrocery){
