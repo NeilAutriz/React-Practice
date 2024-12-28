@@ -5,7 +5,8 @@ import AddItem from './AddItem';
 import FilterItem from './FilterItem';
 
 const Content = ({ initialGrocery }) => {
-    
+    const groceryItemsURL = 'http://localhost:1000/items'
+
     const handleLoading = () => {
         let loadedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
         if(loadedGrocery.length === 0 && loadedGrocery){
@@ -16,7 +17,36 @@ const Content = ({ initialGrocery }) => {
     }
 
     const [grocery, setGrocery] = useState(handleLoading());
-    
+    const [loadingError, setLoadingError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const loadGroceryItems = async () => {
+            try{
+                const dataItemsLoaded = await fetch(groceryItemsURL);
+                if(!(dataItemsLoaded.ok)){
+                    throw new Error('Error in loading the data');
+                }
+                const groceryData = await dataItemsLoaded.json();
+                console.log(groceryData);
+                setGrocery(groceryData);
+            }
+            catch(error){
+                console.log(error.message);
+                setLoadingError(error.message);
+            } finally{
+                setIsLoading(false);
+            }
+
+        }
+        
+        setTimeout(() => {
+            loadGroceryItems();
+        }, 3000);
+
+
+    }, []);
+
     useEffect(() => {
         localStorage.setItem('groceryItems', JSON.stringify(grocery));
         console.log('Item updated!');
@@ -48,10 +78,14 @@ const Content = ({ initialGrocery }) => {
         <div className="container-div">
             <AddItem grocery={grocery} setGrocery={setGrocery}/>
             <FilterItem className="filter-section" grocery={grocery} setGrocery={setGrocery} initialGrocery={initialGrocery}/>
+            {loadingError && <h1 className='loading-message'> ❌ Error detected in fetching the data ❌ </h1>}
+            {isLoading && <h1 className='loading-message'> ⌛The items are still being loaded⌛ </h1>}
             {grocery.length === 0 ? (
                 <h1 className='loading-message'>🛒There are no items yet🛒</h1>
             ) : (
+                <>
                 <GroceryList grocery={grocery} handleChecking={handleChecking} designChecked={designChecked} handleDeleting={handleDeleting}/>
+                </>
             )}
         </div>
     );
