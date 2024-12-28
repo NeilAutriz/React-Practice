@@ -2,14 +2,10 @@ import { FaPlus } from 'react-icons/fa';
 import '../styles/AddItem.css'
 import { useState } from 'react';
 
-
-
-const AddItem = ({grocery, setGrocery, saveToLocal}) => {
-    
+const AddItem = ({grocery, setGrocery}) => {
     const [newItem, setNewItem] = useState('')
     const [newType, setNewType] = useState('')
     const [newDesc, setNewDesc] = useState('')
-
 
     const handleName = (e) => {
         setNewItem(e.target.value)
@@ -36,7 +32,6 @@ const AddItem = ({grocery, setGrocery, saveToLocal}) => {
         const createdItem = {id: newId, name: itemName, type:itemType, description:itemDesc, checked: false}
         const updatedGrocery = [...grocery, createdItem];
         setGrocery(updatedGrocery);
-        saveToLocal(updatedGrocery);
     }
 
     return(
@@ -48,7 +43,6 @@ const AddItem = ({grocery, setGrocery, saveToLocal}) => {
             <button className="submit-button" type='submit'>
                 <FaPlus className='submit-icon'/>
             </button>
-            {console.log(grocery)}
         </form>
     )
 }

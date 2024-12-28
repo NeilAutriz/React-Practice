@@ -1,0 +1,37 @@
+.search-button{
+    height: 43px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(40, 172, 97);
+    opacity: 1;
+    transition: 0.3s 0.3s; 
+}
+
+.search-button:active{
+    opacity: 0.5;
+}
+
+.search-button:hover{
+    background-color: rgb(42, 122, 76);
+}
+
+.search-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.search-input-holder{
+    margin: 10px;
+    font-size: 20px;
+    min-width: 10%;
+    max-width: 35%;
+    padding: 8px;
+    height: auto;
+}
