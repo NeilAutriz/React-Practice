@@ -1,8 +1,9 @@
 import { FaPlus } from 'react-icons/fa';
 import '../styles/AddItem.css'
 import { useState } from 'react';
+import ApiRequest from './ApiRequest';
 
-const AddItem = ({grocery, setGrocery}) => {
+const AddItem = ({grocery, setGrocery, groceryItemsURL, loadingError, setLoadingError}) => {
     const [newItem, setNewItem] = useState('')
     const [newType, setNewType] = useState('')
     const [newDesc, setNewDesc] = useState('')
@@ -27,11 +28,24 @@ const AddItem = ({grocery, setGrocery}) => {
         setNewDesc('');
     }
 
-    const handleAdding = (itemName, itemType, itemDesc) => {    
+    const handleAdding = async (itemName, itemType, itemDesc) => {    
         const newId = Number(grocery.length + 1);
         const createdItem = {id: newId, name: itemName, type:itemType, description:itemDesc, checked: false}
         const updatedGrocery = [...grocery, createdItem];
         setGrocery(updatedGrocery);
+
+        const apiOption = {
+            method: "POST", 
+            header: {
+                "Context-Type" : "application/json"
+            },
+            body: JSON.stringify(createdItem)
+        }
+
+        const errorInAdding = await ApiRequest(groceryItemsURL, apiOption);
+        console.log(errorInAdding);
+        console.log('damdadma');
+        setLoadingError(errorInAdding);
     }
 
     return(

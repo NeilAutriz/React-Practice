@@ -1,7 +1,25 @@
 {
-    "items": [
-        {"id": 1, "name": "Deliciously Chewy Oatmeal Raisin Cookies", "type": "bake", "description" : "A freshly baked cookie made with hearty oatmeal and sweet raisins.", "checked": false },
-        { "id": 2, "name": "Ripe and Juicy Seedless Pomelo Citrus Fruit", "type": "fruit", "description": "A refreshing seedless pomelo fruit filled with natural sweetness and ripened chlorophyll.", "checked": true },
-        { "id": 3, "name": "Authentic Filipino Menudo Dish with Potatoes", "type": "dish", "description": "A savory dish of tender menudo meat simmered with potatoes and orange peanuts.", "checked": true }
-    ]
+  "items": [
+    {
+      "id": "1",
+      "name": "Deliciously Chewy Oatmeal Raisin Cookies",
+      "type": "bake",
+      "description": "A freshly baked cookie made with hearty oatmeal and sweet raisins.",
+      "checked": true
+    },
+    {
+      "id": "2",
+      "name": "Ripe and Juicy Seedless Pomelo Citrus Fruit",
+      "type": "fruit",
+      "description": "A refreshing seedless pomelo fruit filled with natural sweetness and ripened chlorophyll.",
+      "checked": true
+    },
+    {
+      "id": "4",
+      "name": "Vanilla Chocolate",
+      "type": "ice cream",
+      "description": "ice cream with vanilla filling and chocolate chips",
+      "checked": false
+    }
+  ]
 }

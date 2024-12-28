@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 import GroceryList from './GroceryList';
 import AddItem from './AddItem';
 import FilterItem from './FilterItem';
+import ApiRequest from './ApiRequest';
 
 const Content = ({ initialGrocery }) => {
-    const groceryItemsURL = 'http://localhost:1000/items'
-
     const handleLoading = () => {
         let loadedGrocery = JSON.parse(localStorage.getItem('groceryItems'));
         if(loadedGrocery.length === 0 && loadedGrocery){
@@ -16,6 +15,7 @@ const Content = ({ initialGrocery }) => {
         }
     }
 
+    const groceryItemsURL = 'http://localhost:1000/items'
     const [grocery, setGrocery] = useState(handleLoading());
     const [loadingError, setLoadingError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -53,17 +53,42 @@ const Content = ({ initialGrocery }) => {
     }, [grocery])
 
     // Handle checking/unchecking items
-    const handleChecking = (itemID) => {
+    const handleChecking = async (itemID) => {
         const updatedGrocery = grocery.map((item) =>
             item.id === itemID ? { ...item, checked: !item.checked } : item
         );
         setGrocery(updatedGrocery);
+
+        const updatedItem = grocery.filter((item) => item.id === itemID)
+
+        const apiOption = {
+            method: "PATCH", 
+            header: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({checked: !updatedItem[0].checked})
+        }
+
+        const editRequestURL = `${groceryItemsURL}/${itemID}`;
+        console.log(editRequestURL);
+        const errorInAdding = await ApiRequest(editRequestURL, apiOption);
+        console.log(errorInAdding);
+        setLoadingError(errorInAdding);
+
     };
 
     // Handle deleting items
-    const handleDeleting = (itemID) => {
+    const handleDeleting = async (itemID) => {
         const updatedGrocery = grocery.filter((item) => item.id !== itemID);
         setGrocery(updatedGrocery);
+
+        const apiDeleteOption = {
+            method: 'DELETE', 
+        }
+        const urlToDelete = `${groceryItemsURL}/${itemID}`
+        const errorInDeleting = await ApiRequest(urlToDelete, apiDeleteOption);
+        console.log(errorInDeleting);
+        setLoadingError(errorInDeleting);
     };
 
     const designChecked = (itemChecked) => {
@@ -76,7 +101,7 @@ const Content = ({ initialGrocery }) => {
 
     return (
         <div className="container-div">
-            <AddItem grocery={grocery} setGrocery={setGrocery}/>
+            <AddItem grocery={grocery} setGrocery={setGrocery} groceryItemsURL={groceryItemsURL} loadingError={loadingError} setLoadingError={setLoadingError}/>
             <FilterItem className="filter-section" grocery={grocery} setGrocery={setGrocery} initialGrocery={initialGrocery}/>
             {loadingError && <h1 className='loading-message'> ❌ Error detected in fetching the data ❌ </h1>}
             {isLoading && <h1 className='loading-message'> ⌛The items are still being loaded⌛ </h1>}
