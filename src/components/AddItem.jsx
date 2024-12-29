@@ -30,22 +30,21 @@ const AddItem = ({grocery, setGrocery, groceryItemsURL, loadingError, setLoading
 
     const handleAdding = async (itemName, itemType, itemDesc) => {    
         const newId = Number(grocery.length + 1);
-        const createdItem = {id: newId, name: itemName, type:itemType, description:itemDesc, checked: false}
+        const createdItem = {id: String(newId), name: itemName, type:itemType, description:itemDesc, checked: false}
         const updatedGrocery = [...grocery, createdItem];
         setGrocery(updatedGrocery);
 
-        const apiOption = {
-            method: "POST", 
-            header: {
-                "Context-Type" : "application/json"
+        const addApiOption = {
+            method: 'POST',
+            header: { 
+                'Content-type': 'application/json',
             },
             body: JSON.stringify(createdItem)
-        }
+        } 
 
-        const errorInAdding = await ApiRequest(groceryItemsURL, apiOption);
-        console.log(errorInAdding);
-        console.log('damdadma');
-        setLoadingError(errorInAdding);
+        const errorDetectedAdd = await ApiRequest(groceryItemsURL, addApiOption);
+        console.log(errorDetectedAdd);
+        setLoadingError(errorDetectedAdd);
     }
 
     return(

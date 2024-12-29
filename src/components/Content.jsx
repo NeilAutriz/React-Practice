@@ -42,7 +42,7 @@ const Content = ({ initialGrocery }) => {
         
         setTimeout(() => {
             loadGroceryItems();
-        }, 3000);
+        }, 2000);
 
 
     }, []);
@@ -57,23 +57,24 @@ const Content = ({ initialGrocery }) => {
         const updatedGrocery = grocery.map((item) =>
             item.id === itemID ? { ...item, checked: !item.checked } : item
         );
-        setGrocery(updatedGrocery);
 
-        const updatedItem = grocery.filter((item) => item.id === itemID)
+        const foundItem = grocery.filter((item) => item.id === itemID);
 
-        const apiOption = {
-            method: "PATCH", 
-            header: {
-                "Content-Type" : "application/json"
+        const addApiOption = {
+            method: 'PATCH',
+            header: { 
+                'Content-type': 'application/json',
             },
-            body: JSON.stringify({checked: !updatedItem[0].checked})
-        }
+            body: JSON.stringify({checked: !(foundItem[0].checked)})
+        } 
 
-        const editRequestURL = `${groceryItemsURL}/${itemID}`;
-        console.log(editRequestURL);
-        const errorInAdding = await ApiRequest(editRequestURL, apiOption);
-        console.log(errorInAdding);
-        setLoadingError(errorInAdding);
+        const itemURLToPatch = `${groceryItemsURL}/${itemID}`;
+
+        const editingError = await ApiRequest(itemURLToPatch, addApiOption);
+        console.log(editingError);
+        setLoadingError(editingError);
+        
+        setGrocery(updatedGrocery);
 
     };
 
@@ -82,13 +83,13 @@ const Content = ({ initialGrocery }) => {
         const updatedGrocery = grocery.filter((item) => item.id !== itemID);
         setGrocery(updatedGrocery);
 
-        const apiDeleteOption = {
-            method: 'DELETE', 
+        const deletingAPI = {
+            method: 'DELETE'
         }
-        const urlToDelete = `${groceryItemsURL}/${itemID}`
-        const errorInDeleting = await ApiRequest(urlToDelete, apiDeleteOption);
-        console.log(errorInDeleting);
-        setLoadingError(errorInDeleting);
+        const urlDelete = `${groceryItemsURL}/${itemID}`;
+        const deletingError = await ApiRequest(urlDelete, deletingAPI);
+        console.log(deletingError);
+        setLoadingError(deletingError);
     };
 
     const designChecked = (itemChecked) => {

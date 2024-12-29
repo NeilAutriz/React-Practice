@@ -1,14 +1,14 @@
 const ApiRequest = async (url='', apiOption=null, errorMessage=null) => {
     try{
-        const dataProcessed = await fetch(url, apiOption);
-        if(!(dataProcessed.ok)){
-            throw new Error('Error in performing the API request.');
+        const fetchedData = await fetch(url, apiOption);
+        if(!(fetchedData.ok)) {
+            throw new Error('Error detected in performing API request.')
         }
-        console.log(dataProcessed);
-    } catch (error){
-        errorMessage = error.message;
+    } catch(error){
+        const errorMessage = error.message;
+        console.log(errorMessage);
     } finally{
-        return errorMessage;
+        return errorMessage
     }
 
 }
